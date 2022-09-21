@@ -1,0 +1,80 @@
+Código: AA
+Transmission1.txt ==> 3 veces
+427, 615, 857
+Transmission2.txt ==> 2 veces
+574, 667
+Transmission3.txt ==> 0 veces
+
+--------------
+Código: A13
+Transmission1.txt ==> 3 veces
+23, 153, 822
+Transmission2.txt ==> 1 veces
+253
+Transmission3.txt ==> 1 veces
+344
+--------------
+Código: 73A2
+Transmission1.txt ==> 0 veces
+
+Transmission2.txt ==> 0 veces
+
+Transmission3.txt ==> 0 veces
+
+--------------
+Código: 1C3
+Transmission1.txt ==> 0 veces
+
+Transmission2.txt ==> 0 veces
+
+Transmission3.txt ==> 1 veces
+527
+--------------
+Código: CDEC
+Transmission1.txt ==> 4 veces
+0, 463, 640, 705
+Transmission2.txt ==> 0 veces
+
+Transmission3.txt ==> 5 veces
+17, 269, 282, 466, 467
+--------------
+Código: FFF
+Transmission1.txt ==> 1 veces
+764
+Transmission2.txt ==> 0 veces
+
+Transmission3.txt ==> 5 veces
+352, 353, 354, 355, 356
+--------------
+Código: 139
+Transmission1.txt ==> 2 veces
+24, 25
+Transmission2.txt ==> 5 veces
+254, 680, 683, 686, 687
+Transmission3.txt ==> 2 veces
+441, 537
+--------------
+Código: CF40
+Transmission1.txt ==> 2 veces
+29, 708
+Transmission2.txt ==> 1 veces
+994
+Transmission3.txt ==> 0 veces
+
+--------------
+Código: 77
+Transmission1.txt ==> 4 veces
+56, 473, 483, 767
+Transmission2.txt ==> 6 veces
+22, 414, 415, 646, 745, 974
+Transmission3.txt ==> 6 veces
+66, 427, 637, 638, 639, 640
+--------------
+Código: 567
+Transmission1.txt ==> 0 veces
+
+Transmission2.txt ==> 1 veces
+272
+Transmission3.txt ==> 0 veces
+
+==============
