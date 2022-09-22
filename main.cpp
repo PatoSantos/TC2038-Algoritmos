@@ -84,6 +84,34 @@ string buscarIncidencias(string mcode, vector<string> transmissions){
         }
         res += "\n";
     }
+
+    vector<string> max;
+    vector<string> sub1 = subsecuenciaMasEncontrada(mcode, transmissions[0]);
+    vector<string> sub2 = subsecuenciaMasEncontrada(mcode, transmissions[1]);
+    vector<string> sub3 = subsecuenciaMasEncontrada(mcode, transmissions[2]);
+
+    if (stoi(sub1[1]) >= stoi(sub2[1])){
+        if (stoi(sub1[1]) >= stoi(sub3[1])){
+            max = sub1;
+            max.push_back("transmission1.txt");
+        }
+        else{
+            max = sub3;
+            max.push_back("transmission3.txt");
+        }
+    }
+    else{
+        if (stoi(sub2[1]) >= stoi(sub3[1])){
+            max = sub2;
+            max.push_back("transmission2.txt");
+        }
+        else{
+            max = sub3;
+            max.push_back("transmission3.txt");
+        }
+    }
+
+    res += "La subsecuencia más encontrada es: " + max[0] + " con " + max[1] + " veces en el archivo " + max[2] + "\n";
     
     return res;
 }
@@ -102,9 +130,9 @@ int main()
         transmissionStream.close();
     }
 
-    for (int i = 0; i < transmissions.size(); i++){
+    /*for (int i = 0; i < transmissions.size(); i++){
         cout << transmissions[i] << endl;
-    }
+    }*/
 
     ifstream mcodeStream(mcodeFile);
     string code;
