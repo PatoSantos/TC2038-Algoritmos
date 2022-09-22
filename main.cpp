@@ -6,7 +6,6 @@
 using namespace std;
 
 vector<string> subsecuenciaMasEncontrada(string mcode, string transmissions){
-
 }
 
 vector<int> z_Function(string general){
