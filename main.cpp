@@ -5,7 +5,45 @@
 
 using namespace std;
 
+<<<<<<< Updated upstream
 vector<string> subsecuenciaMasEncontrada(string mcode, string transmissions){
+=======
+bool isSequence(string sequence, string transmission){
+    int s = 0;
+    for (int i = 0; i<transmission.length(); i++){
+        if (sequence[s] == transmission[i]){
+            s++;
+        }
+        if (s == sequence.length()){
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<string> subsecuenciaMasEncontrada(string mcode, string transmission){
+    vector<string> res = {"", "0"};
+    string code;
+    int count;
+    if (mcode.length() != 1){
+        for (int i = 0; i < mcode.length(); i++){
+            code = mcode.substr(0,i) + mcode.substr(i+1);
+            count = 0;
+            for (int j = 0; j < transmission.length(); j++){
+                if (transmission[j] == code[0]){
+                    if (isSequence(code, transmission.substr(j))){
+                        count++;
+                    }
+                }
+            }
+            if (count > stoi(res[1])){
+                res[0] = code;
+                res[1] = to_string(count);
+            }
+        }
+    }
+    return res;
+>>>>>>> Stashed changes
 }
 
 vector<int> z_Function(string general){
@@ -98,3 +136,13 @@ int main()
 
     return 0;
 }
+
+/*
+abcde
+
+bcde
+acde
+abde
+abce
+abcd
+*/
