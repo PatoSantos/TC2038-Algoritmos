@@ -5,9 +5,6 @@
 
 using namespace std;
 
-<<<<<<< Updated upstream
-vector<string> subsecuenciaMasEncontrada(string mcode, string transmissions){
-=======
 bool isSequence(string sequence, string transmission){
     int s = 0;
     for (int i = 0; i<transmission.length(); i++){
@@ -43,7 +40,6 @@ vector<string> subsecuenciaMasEncontrada(string mcode, string transmission){
         }
     }
     return res;
->>>>>>> Stashed changes
 }
 
 vector<int> z_Function(string general){
