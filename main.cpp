@@ -5,6 +5,60 @@
 
 using namespace std;
 
+
+//O(n*m)
+int ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, string string2, string T) {
+    int max = 0;
+    int end;
+    //O(n)
+    for (int i = 0; i < string1.size(); i++) {
+        if (string1[i] == string2[0]) {
+            LCS[i][0] = 1;
+            max = 1;
+        }
+        else {
+            LCS[i][0] = 0;
+        }
+    }
+
+    //O(n)
+    for (int j = 0; j < string2.size(); j++) {
+        if (string1[0] == string2[j]) {
+            LCS[0][j] = 1;
+            max = 1;
+        }
+        else {
+            LCS[0][j] = 0;
+        }
+    }
+
+    //O(n*m)
+    for (int i = 1; i < string1.size(); i++) {
+        for (int j = 1; j < string2.size(); j++) {
+            if (string1[i] == string2[j]) {
+                LCS[i][j] = LCS[i - 1][j - 1] + 1;
+            }
+            else {
+                LCS[i][j] = 0;
+            }
+            if (LCS[i][j] > max) {
+                max = LCS[i][j];
+                end = i;
+            }
+        }
+    }
+
+    end = end - max + 1;
+    cout << T;
+    for (int i = max; i > 0; i--) {
+        cout << string1[end];
+        end++;
+    }
+    cout << endl;
+
+    return max;
+}
+
 bool isSequence(string sequence, string transmission){
     int s = 0;
     for (int i = 0; i<transmission.length(); i++){
@@ -157,6 +211,38 @@ int main()
     ofstream outFile("checking.txt");
     outFile << writeStr;
     outFile.close();
+
+    //------------------- Longest common substring --------------------------------------------------
+
+    stringstream strStream; //Leer string
+    ifstream inFile; //Abrir archivos
+    vector<string> textStrings; //Vector con los strings de cada archivo
+
+    //Iterar por cada archivo y guardar los archivos como strings
+    for (int i = 0; i < 3; i++) {
+        inFile.open(transmissionFiles[i]);
+        strStream << inFile.rdbuf();
+
+        textStrings.push_back(strStream.str());
+
+        strStream.clear();
+        strStream.str("");
+        inFile.close();
+    }
+
+
+    //Matrices para cada comparacion de substrings
+    vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(textStrings[0].size(), vector<int>(textStrings[1].size()));
+    vector<vector<int>> LCS_T1_T3 = vector<vector<int>>(textStrings[0].size(), vector<int>(textStrings[2].size()));
+    vector<vector<int>> LCS_T2_T3 = vector<vector<int>>(textStrings[1].size(), vector<int>(textStrings[2].size()));
+
+    //Sacar substrings
+    cout << "============" << endl;
+    cout << "Los Substring mas largos son: " << endl;
+
+    ResolveLongestCommonSubstring(LCS_T1_T2, textStrings[0], textStrings[1], "T1-T2 ==> ");
+    ResolveLongestCommonSubstring(LCS_T1_T3, textStrings[0], textStrings[2], "T1-T3 ==> ");
+    ResolveLongestCommonSubstring(LCS_T2_T3, textStrings[1], textStrings[2], "T2-T3 ==> ");
 
     return 0;
 }
