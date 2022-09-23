@@ -115,6 +115,45 @@ vector<int> z_Function(string general){
     return result;
 }
 
+void palindromo(vector<string> transmissions){
+    //Para cada archivo transmission
+    for (int w = 0; w < 1; w++){
+        int n = transmissions[w].size();
+        bool mat[n][n] = {false};
+
+        //Inicialización diagonal con true
+        for (int i = 0; i < n; i++){
+            mat[i][i] = true;
+        }
+
+        //inicialización renglon y columna 0
+        for (int i = 0; i < n; i++){
+
+        }
+        
+        
+        int pos;
+        for (int i = 1; i < n; i++){
+            for (int j = 1; j < n; j++){
+                if (mat[i+1][j-1]&& transmissions[w].at(i)==transmissions[w].at(i)){
+                    mat[i][j] = true;
+                }else{
+                    mat[i][j] = false;
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++)
+            {
+                cout<< mat[i][j] << " ";
+            }
+            cout<<endl;
+        }
+    }
+
+}
+
 string buscarIncidencias(string mcode, vector<string> transmissions){
     string res = "Código: " + mcode + "\n";
 
@@ -178,8 +217,11 @@ int main()
     vector<string> transmissions(transmissionFiles.size());
     vector<string> mcodes;
 
+    //para cada archivo
     for (int i = 0; i < transmissions.size(); i++){
+        //Abrir el i archivo
         ifstream transmissionStream(transmissionFiles[i]);
+        //Guardar todo el txt en el array transmissions
         getline(transmissionStream, transmissions[i]);
         transmissionStream.close();
     }
@@ -188,15 +230,19 @@ int main()
         cout << transmissions[i] << endl;
     }*/
 
+    //Abrir archivo mcode.txt
     ifstream mcodeStream(mcodeFile);
     string code;
 
+    //Guardar cada malicious code (cada linea) en "code" y agregarlo al array mcodes.
     while (getline(mcodeStream,code)){
         mcodes.push_back(code);
     }
     mcodeStream.close();
 
     string writeStr = "";
+
+    palindromo(transmissions);
 
     for (int i = 0; i < mcodes.size(); i++){
         if (i == 0){
