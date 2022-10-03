@@ -209,24 +209,21 @@ string buscarIncidencias(string mcode, vector<string> transmissions){
 
 int main()
 {
+    //Se leen las transmisiones y se guardan en un arreglo.
     vector<string> transmissionFiles = {"transmission1.txt", "transmission2.txt", "transmission3.txt"};
     string mcodeFile = "mcode.txt";
 
-    vector<string> transmissions(transmissionFiles.size());
+    vector<string> transmissions(transmissionFiles.size()); //Arreglo con las transmisiones
     vector<string> mcodes;
 
-    //para cada archivo
     for (int i = 0; i < transmissions.size(); i++){
         //Abrir el i archivo
         ifstream transmissionStream(transmissionFiles[i]);
-        //Guardar todo el txt en el array transmissions
+        //Guardar todo el txt en el arreglo transmissions
         getline(transmissionStream, transmissions[i]);
         transmissionStream.close();
     }
 
-    /*for (int i = 0; i < transmissions.size(); i++){
-        cout << transmissions[i] << endl;
-    }*/
 
     //Abrir archivo mcode.txt
     ifstream mcodeStream(mcodeFile);
@@ -238,8 +235,11 @@ int main()
     }
     mcodeStream.close();
 
+    //Se crea el string inicial donde se guardaran todas las lecturas para luego
+    //escribirlo a checking.txt
     string writeStr = "";
 
+    //Se buscan las incidencias de cada mcode en todos los archivos
     for (int i = 0; i < mcodes.size(); i++){
         if (i == 0){
             writeStr += buscarIncidencias(mcodes[i],transmissions);
@@ -249,6 +249,8 @@ int main()
     }
 
     writeStr += "==============\n";
+
+    //Se buscan los palíndromos de cada archivo
     vector<int> indicesPalindromos;
     vector<string> palindromos;
     for (int i = 0; i < transmissions.size(); i++){
@@ -271,6 +273,7 @@ int main()
     }
     writeStr += "==============\n";
 
+    //Se busca el substring común más grande entre los archivos.
     //Matrices para cada comparacion de substrings
     vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[1].size()));
     vector<vector<int>> LCS_T1_T3 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[2].size()));
