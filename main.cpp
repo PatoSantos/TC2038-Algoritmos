@@ -2,12 +2,14 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
 
 //O(n*m)
-int ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, string string2, string T) {
+string ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, string string2, string T) {
+    string res = "";
     int max = 0;
     int end;
     //O(n)
@@ -49,14 +51,14 @@ int ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, stri
     }
 
     end = end - max + 1;
-    cout << T;
+    res += T;
     for (int i = max; i > 0; i--) {
-        cout << string1[end];
+        res+= string1[end];
         end++;
     }
-    cout << endl;
+    res += "\n";
 
-    return max;
+    return res;
 }
 
 bool isSequence(string sequence, string transmission){
@@ -143,13 +145,13 @@ void palindromo(vector<string> transmissions){
             }
         }
 
-        for (int i = 0; i < n; i++){
+        /*for (int i = 0; i < n; i++){
             for (int j = 0; j < n; j++)
             {
                 cout<< mat[i][j] << " ";
             }
             cout<<endl;
-        }
+        }*/
     }
 
 }
@@ -242,8 +244,6 @@ int main()
 
     string writeStr = "";
 
-    palindromo(transmissions);
-
     for (int i = 0; i < mcodes.size(); i++){
         if (i == 0){
             writeStr += buscarIncidencias(mcodes[i],transmissions);
@@ -254,11 +254,27 @@ int main()
 
     writeStr += "==============\n";
 
+    palindromo(transmissions);
+
+    //Matrices para cada comparacion de substrings
+    vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[1].size()));
+    vector<vector<int>> LCS_T1_T3 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[2].size()));
+    vector<vector<int>> LCS_T2_T3 = vector<vector<int>>(transmissions[1].size(), vector<int>(transmissions[2].size()));
+
+    //Sacar substrings
+    //cout << "============" << endl;
+    writeStr += "Los Substring mas largos son:\n";
+
+    writeStr += ResolveLongestCommonSubstring(LCS_T1_T2, transmissions[0], transmissions[1], "T1-T2 ==> ");
+    writeStr += ResolveLongestCommonSubstring(LCS_T1_T3, transmissions[0], transmissions[2], "T1-T3 ==> ");
+    writeStr += ResolveLongestCommonSubstring(LCS_T2_T3, transmissions[1], transmissions[2], "T2-T3 ==> ");
+
+
     ofstream outFile("checking.txt");
     outFile << writeStr;
     outFile.close();
 
-    //------------------- Longest common substring --------------------------------------------------
+    /*/------------------- Longest common substring --------------------------------------------------
 
     stringstream strStream; //Leer string
     ifstream inFile; //Abrir archivos
@@ -276,7 +292,6 @@ int main()
         inFile.close();
     }
 
-
     //Matrices para cada comparacion de substrings
     vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(textStrings[0].size(), vector<int>(textStrings[1].size()));
     vector<vector<int>> LCS_T1_T3 = vector<vector<int>>(textStrings[0].size(), vector<int>(textStrings[2].size()));
@@ -288,7 +303,8 @@ int main()
 
     ResolveLongestCommonSubstring(LCS_T1_T2, textStrings[0], textStrings[1], "T1-T2 ==> ");
     ResolveLongestCommonSubstring(LCS_T1_T3, textStrings[0], textStrings[2], "T1-T3 ==> ");
-    ResolveLongestCommonSubstring(LCS_T2_T3, textStrings[1], textStrings[2], "T2-T3 ==> ");
+    ResolveLongestCommonSubstring(LCS_T2_T3, textStrings[1], textStrings[2], "T2-T3 ==> ");*/
+    
 
     return 0;
 }
