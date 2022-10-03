@@ -6,8 +6,7 @@
 
 using namespace std;
 
-
-//O(n*m)
+//Complejidad: O(n*m)
 string ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, string string2, string T) {
     string res = "";
     int max = 0;
@@ -61,9 +60,10 @@ string ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, s
     return res;
 }
 
+//Complejidad: O(n)
 bool isSequence(string sequence, string transmission){
     int s = 0;
-    for (int i = 0; i<transmission.length(); i++){
+    for (int i = 0; i<transmission.length(); i++){ //O(n)
         if (sequence[s] == transmission[i]){
             s++;
         }
@@ -74,17 +74,18 @@ bool isSequence(string sequence, string transmission){
     return false;
 }
 
+//Complejidad: O(n^3)
 vector<string> subsecuenciaMasEncontrada(string mcode, string transmission){
     vector<string> res = {"", "0"};
     string code;
     int count;
     if (mcode.length() != 1){
-        for (int i = 0; i < mcode.length(); i++){
+        for (int i = 0; i < mcode.length(); i++){ //O(n^3)
             code = mcode.substr(0,i) + mcode.substr(i+1);
             count = 0;
-            for (int j = 0; j < transmission.length(); j++){
+            for (int j = 0; j < transmission.length(); j++){ //O(n^2)
                 if (transmission[j] == code[0]){
-                    if (isSequence(code, transmission.substr(j))){
+                    if (isSequence(code, transmission.substr(j))){ //O(n)
                         count++;
                     }
                 }
@@ -98,10 +99,11 @@ vector<string> subsecuenciaMasEncontrada(string mcode, string transmission){
     return res;
 }
 
+//Complejidad O(n)
 vector<int> z_Function(string general){
     int n = general.length();
     vector<int> result(n,0);
-    for (int i=1, l=0, r=0; i<n; i++){
+    for (int i=1, l=0, r=0; i<n; i++){ //O(n)
         if (i <= r){
             result[i] = min(r-i+1, result[i-1]);
         }
@@ -117,18 +119,19 @@ vector<int> z_Function(string general){
     return result;
 }
 
+//Complejidad: O(n^2)
 pair<string, int> palindromo(string txt){
     int n, max, index;
     n = txt.size();
     vector<vector<bool>> mat(n, vector<bool>(n, false));
 
     // La diagonal es true porque las letras solas son palindromos
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) { //O(n)
         mat[i][i] = true;
     }
 
     // Checar pares iguales porque asi empiezan los palindromos
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n - 1; i++) { //O(n)
         if (txt[i] == txt[i + 1]) {
             mat[i][i + 1] = true;
             max = 2;
@@ -137,8 +140,8 @@ pair<string, int> palindromo(string txt){
     }
 
     // Checar ya por palindromos
-    for (int i = 3; i <= n; i++) {
-        for (int j = 0; j < n - i + 1; j++) {
+    for (int i = 3; i <= n; i++) { //O(n^2)
+        for (int j = 0; j < n - i + 1; j++) { //O(n)
             int k = j + i - 1;
             if (mat[j + 1][k - 1] && txt[j] == txt[k]) {
                 mat[j][k] = true;
@@ -152,20 +155,21 @@ pair<string, int> palindromo(string txt){
     return make_pair(txt.substr(index,max), index);
 }
 
+// Complejidad: O(n^3)
 string buscarIncidencias(string mcode, vector<string> transmissions){
     string res = "Código: " + mcode + "\n";
 
-    for (int i = 0; i < transmissions.size(); i++){
+    for (int i = 0; i < transmissions.size(); i++){ //O(n^2)
         vector<int> result;
         string general = mcode + "$" + transmissions[i];
-        vector<int> zf = z_Function(general);
-        for (int i=0; i < zf.size(); i++){
+        vector<int> zf = z_Function(general); //O(n)
+        for (int i=0; i < zf.size(); i++){ //O(n)
             if (zf[i] == mcode.length()){
                 result.push_back(i);
             }
         }
         res += "Transmission" + to_string(i+1) + ".txt ==> " + to_string(result.size()) + " veces\n";
-        for (int i=0; i < result.size(); i++){
+        for (int i=0; i < result.size(); i++){ //O(n)
             if (i==0){
                 res += to_string(result[i] - mcode.length() - 1);
             }
@@ -177,9 +181,9 @@ string buscarIncidencias(string mcode, vector<string> transmissions){
     }
 
     vector<string> max;
-    vector<string> sub1 = subsecuenciaMasEncontrada(mcode, transmissions[0]);
-    vector<string> sub2 = subsecuenciaMasEncontrada(mcode, transmissions[1]);
-    vector<string> sub3 = subsecuenciaMasEncontrada(mcode, transmissions[2]);
+    vector<string> sub1 = subsecuenciaMasEncontrada(mcode, transmissions[0]);//O(n^3)
+    vector<string> sub2 = subsecuenciaMasEncontrada(mcode, transmissions[1]);//O(n^3)
+    vector<string> sub3 = subsecuenciaMasEncontrada(mcode, transmissions[2]);//O(n^3)
 
     if (stoi(sub1[1]) >= stoi(sub2[1])){
         if (stoi(sub1[1]) >= stoi(sub3[1])){
@@ -216,7 +220,7 @@ int main()
     vector<string> transmissions(transmissionFiles.size()); //Arreglo con las transmisiones
     vector<string> mcodes;
 
-    for (int i = 0; i < transmissions.size(); i++){
+    for (int i = 0; i < transmissions.size(); i++){ //O(n)
         //Abrir el i archivo
         ifstream transmissionStream(transmissionFiles[i]);
         //Guardar todo el txt en el arreglo transmissions
@@ -230,7 +234,7 @@ int main()
     string code;
 
     //Guardar cada malicious code (cada linea) en "code" y agregarlo al array mcodes.
-    while (getline(mcodeStream,code)){
+    while (getline(mcodeStream,code)){ //O(n)
         mcodes.push_back(code);
     }
     mcodeStream.close();
@@ -240,11 +244,11 @@ int main()
     string writeStr = "";
 
     //Se buscan las incidencias de cada mcode en todos los archivos
-    for (int i = 0; i < mcodes.size(); i++){
+    for (int i = 0; i < mcodes.size(); i++){ //O(n^4)
         if (i == 0){
-            writeStr += buscarIncidencias(mcodes[i],transmissions);
+            writeStr += buscarIncidencias(mcodes[i],transmissions);//O(n^3)
         } else {
-            writeStr += "--------------\n" + buscarIncidencias(mcodes[i],transmissions);
+            writeStr += "--------------\n" + buscarIncidencias(mcodes[i],transmissions);//O(n^3)
         }
     }
 
@@ -253,13 +257,13 @@ int main()
     //Se buscan los palíndromos de cada archivo
     vector<int> indicesPalindromos;
     vector<string> palindromos;
-    for (int i = 0; i < transmissions.size(); i++){
-        pair<string,int> temp = palindromo(transmissions[i]);
+    for (int i = 0; i < transmissions.size(); i++){//O(n^3)
+        pair<string,int> temp = palindromo(transmissions[i]);//O(n^2)
         palindromos.push_back(temp.first);
         indicesPalindromos.push_back(temp.second);
     }
     writeStr += "Palíndromo más grande:\n";
-    for (int i = 0; i < transmissions.size(); i++){
+    for (int i = 0; i < transmissions.size(); i++){ //O(n)
         if (i != 0){
             writeStr += "----\n";
         }
@@ -280,59 +284,16 @@ int main()
     vector<vector<int>> LCS_T2_T3 = vector<vector<int>>(transmissions[1].size(), vector<int>(transmissions[2].size()));
 
     //Sacar substrings
-    //cout << "============" << endl;
     writeStr += "Los Substring mas largos son:\n";
 
-    writeStr += ResolveLongestCommonSubstring(LCS_T1_T2, transmissions[0], transmissions[1], "T1-T2 ==> ");
-    writeStr += ResolveLongestCommonSubstring(LCS_T1_T3, transmissions[0], transmissions[2], "T1-T3 ==> ");
-    writeStr += ResolveLongestCommonSubstring(LCS_T2_T3, transmissions[1], transmissions[2], "T2-T3 ==> ");
+    writeStr += ResolveLongestCommonSubstring(LCS_T1_T2, transmissions[0], transmissions[1], "T1-T2 ==> ");//O(n*m)
+    writeStr += ResolveLongestCommonSubstring(LCS_T1_T3, transmissions[0], transmissions[2], "T1-T3 ==> ");//O(n*m)
+    writeStr += ResolveLongestCommonSubstring(LCS_T2_T3, transmissions[1], transmissions[2], "T2-T3 ==> ");//O(n*m)
 
-
+    //Se escribe todo lo de writeStr en checking.txt
     ofstream outFile("checking.txt");
     outFile << writeStr;
     outFile.close();
 
-    /*/------------------- Longest common substring --------------------------------------------------
-
-    stringstream strStream; //Leer string
-    ifstream inFile; //Abrir archivos
-    vector<string> textStrings; //Vector con los strings de cada archivo
-
-    //Iterar por cada archivo y guardar los archivos como strings
-    for (int i = 0; i < 3; i++) {
-        inFile.open(transmissionFiles[i]);
-        strStream << inFile.rdbuf();
-
-        textStrings.push_back(strStream.str());
-
-        strStream.clear();
-        strStream.str("");
-        inFile.close();
-    }
-
-    //Matrices para cada comparacion de substrings
-    vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(textStrings[0].size(), vector<int>(textStrings[1].size()));
-    vector<vector<int>> LCS_T1_T3 = vector<vector<int>>(textStrings[0].size(), vector<int>(textStrings[2].size()));
-    vector<vector<int>> LCS_T2_T3 = vector<vector<int>>(textStrings[1].size(), vector<int>(textStrings[2].size()));
-
-    //Sacar substrings
-    cout << "============" << endl;
-    cout << "Los Substring mas largos son: " << endl;
-
-    ResolveLongestCommonSubstring(LCS_T1_T2, textStrings[0], textStrings[1], "T1-T2 ==> ");
-    ResolveLongestCommonSubstring(LCS_T1_T3, textStrings[0], textStrings[2], "T1-T3 ==> ");
-    ResolveLongestCommonSubstring(LCS_T2_T3, textStrings[1], textStrings[2], "T2-T3 ==> ");*/
-    
-
     return 0;
 }
-
-/*
-abcde
-
-bcde
-acde
-abde
-abce
-abcd
-*/
