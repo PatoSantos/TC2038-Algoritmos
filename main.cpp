@@ -120,7 +120,7 @@ vector<int> z_Function(string general){
 pair<string, int> palindromo(string txt){
     int n, max, index;
     n = txt.size();
-    bool mat[n][n] = {false};
+    vector<vector<bool>> mat(n, vector<bool>(n, false));
 
     // La diagonal es true porque las letras solas son palindromos
     for (int i = 0; i < n; i++) {
