@@ -117,43 +117,39 @@ vector<int> z_Function(string general){
     return result;
 }
 
-void palindromo(vector<string> transmissions){
-    //Para cada archivo transmission
-    for (int w = 0; w < 1; w++){
-        int n = transmissions[w].size();
-        bool mat[n][n] = {false};
+pair<string, int> palindromo(string txt){
+    int n, max, index;
+    n = txt.size();
+    bool mat[n][n] = {false};
 
-        //Inicialización diagonal con true
-        for (int i = 0; i < n; i++){
-            mat[i][i] = true;
+    // La diagonal es true porque las letras solas son palindromos
+    for (int i = 0; i < n; i++) {
+        mat[i][i] = true;
+    }
+
+    // Checar pares iguales porque asi empiezan los palindromos
+    for (int i = 0; i < n - 1; i++) {
+        if (txt[i] == txt[i + 1]) {
+            mat[i][i + 1] = true;
+            max = 2;
+            index = i;
         }
+    }
 
-        //inicialización renglon y columna 0
-        for (int i = 0; i < n; i++){
-
-        }
-        
-        
-        int pos;
-        for (int i = 1; i < n; i++){
-            for (int j = 1; j < n; j++){
-                if (mat[i+1][j-1]&& transmissions[w].at(i)==transmissions[w].at(i)){
-                    mat[i][j] = true;
-                }else{
-                    mat[i][j] = false;
+    // Checar ya por palindromos
+    for (int i = 3; i <= n; i++) {
+        for (int j = 0; j < n - i + 1; j++) {
+            int k = j + i - 1;
+            if (mat[j + 1][k - 1] && txt[j] == txt[k]) {
+                mat[j][k] = true;
+                if (i > max) {
+                    max = i;
+                    index = j;
                 }
             }
         }
-
-        /*for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++)
-            {
-                cout<< mat[i][j] << " ";
-            }
-            cout<<endl;
-        }*/
     }
-
+    return make_pair(txt.substr(index,max), index);
 }
 
 string buscarIncidencias(string mcode, vector<string> transmissions){
@@ -253,8 +249,27 @@ int main()
     }
 
     writeStr += "==============\n";
-
-    palindromo(transmissions);
+    vector<int> indicesPalindromos;
+    vector<string> palindromos;
+    for (int i = 0; i < transmissions.size(); i++){
+        pair<string,int> temp = palindromo(transmissions[i]);
+        palindromos.push_back(temp.first);
+        indicesPalindromos.push_back(temp.second);
+    }
+    writeStr += "Palíndromo más grande:\n";
+    for (int i = 0; i < transmissions.size(); i++){
+        if (i != 0){
+            writeStr += "----\n";
+        }
+        writeStr += "Transmission";
+        writeStr += to_string(i+1);
+        writeStr += ".txt ==> Posición: ";
+        writeStr += to_string(indicesPalindromos[i]);
+        writeStr += "\n";
+        writeStr += palindromos[i];
+        writeStr += "\n";
+    }
+    writeStr += "==============\n";
 
     //Matrices para cada comparacion de substrings
     vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[1].size()));
