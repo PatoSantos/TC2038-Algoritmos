@@ -1,3 +1,10 @@
+/*
+Actividad integradora 1
+- Patricio Santos Garza A01197723
+- Alejandro Hernandez Carrales A01721287
+- Rodrigo Galvan Paiz A01721158
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
