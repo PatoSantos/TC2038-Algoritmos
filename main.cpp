@@ -14,7 +14,7 @@ Actividad integradora 1
 using namespace std;
 
 //Complejidad: O(n*m)
-string ResolveLongestCommonSubstring(vector<vector<int>>& LCS, string string1, string string2, string T) {
+string ResolveLongestCommonSubstring(vector<vector<int> >& LCS, string string1, string string2, string T) {
     string res = "";
     int max = 0;
     int end;
@@ -83,7 +83,9 @@ bool isSequence(string sequence, string transmission){
 
 //Complejidad: O(n^3)
 vector<string> subsecuenciaMasEncontrada(string mcode, string transmission){
-    vector<string> res = {"", "0"};
+    vector<string> res;
+    res.push_back("");
+    res.push_back("0"); 
     string code;
     int count;
     if (mcode.length() != 1){
@@ -130,7 +132,7 @@ vector<int> z_Function(string general){
 pair<string, int> palindromo(string txt){
     int n, max, index;
     n = txt.size();
-    vector<vector<bool>> mat(n, vector<bool>(n, false));
+    vector<vector<bool> > mat(n, vector<bool>(n, false));
 
     // La diagonal es true porque las letras solas son palindromos
     for (int i = 0; i < n; i++) { //O(n)
@@ -221,7 +223,10 @@ string buscarIncidencias(string mcode, vector<string> transmissions){
 int main()
 {
     //Se leen las transmisiones y se guardan en un arreglo.
-    vector<string> transmissionFiles = {"transmission1.txt", "transmission2.txt", "transmission3.txt"};
+    vector<string> transmissionFiles;
+    transmissionFiles.push_back("transmission1.txt");
+    transmissionFiles.push_back("transmission2.txt");
+    transmissionFiles.push_back("transmission3.txt");
     string mcodeFile = "mcode.txt";
 
     vector<string> transmissions(transmissionFiles.size()); //Arreglo con las transmisiones
@@ -286,9 +291,9 @@ int main()
 
     //Se busca el substring común más grande entre los archivos.
     //Matrices para cada comparacion de substrings
-    vector<vector<int>> LCS_T1_T2 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[1].size()));
-    vector<vector<int>> LCS_T1_T3 = vector<vector<int>>(transmissions[0].size(), vector<int>(transmissions[2].size()));
-    vector<vector<int>> LCS_T2_T3 = vector<vector<int>>(transmissions[1].size(), vector<int>(transmissions[2].size()));
+    vector<vector<int> > LCS_T1_T2 = vector<vector<int> >(transmissions[0].size(), vector<int>(transmissions[1].size()));
+    vector<vector<int> > LCS_T1_T3 = vector<vector<int> >(transmissions[0].size(), vector<int>(transmissions[2].size()));
+    vector<vector<int> > LCS_T2_T3 = vector<vector<int> >(transmissions[1].size(), vector<int>(transmissions[2].size()));
 
     //Sacar substrings
     writeStr += "Los Substring mas largos son:\n";
