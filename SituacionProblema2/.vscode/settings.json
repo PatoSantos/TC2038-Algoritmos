@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "vector": "cpp",
+        "iomanip": "cpp",
+        "utility": "cpp",
+        "iosfwd": "cpp"
+    }
+}
