@@ -18,6 +18,7 @@ Actividad integradora 2
 #include <iomanip>
 
 #include "MST.hpp"
+#include "Floyd.hpp"
 
 using namespace std;
 
@@ -90,6 +91,10 @@ int main()
     cout << "get tsp" << endl;
     writeStr += "La Ruta Óptima tiene un costo total de: " + to_string(tsp(matAdj, colonias.size(), colonias)) + "\n";
     cout << "tsp fin" << endl;
+
+    //PARTE 3 ---------------------------------------------------------------
+    FloydResult(conexiones, n, m, colonias, colIndex);
+
 
     //PARTE 4----------------------------------------------------------------
 	writeStr += "\n-------------------\n4 - Conexión de nuevas colonias\n\n";
