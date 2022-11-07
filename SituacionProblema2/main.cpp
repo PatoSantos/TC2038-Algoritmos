@@ -72,13 +72,27 @@ int main()
 	//PARTE 1----------------------------------------------------------------
 
 	Graph g(n, n*n);
-	g.load(colonias, cableadoNuevo);
+	g.load(conexiones, cableadoNuevo);
 	g.kruskalMST();
 	g.printEdgesK(colonias, writeStr);
 
 	//PARTE 2----------------------------------------------------------------
 
 	writeStr += "\n-------------------\n2 - La ruta óptima.\n";
+
+    cout << "Init mat" << endl;
+    vector<vector<int>> matAdj(colonias.size()+1, vector<int>(colonias.size()+1, INF));
+
+    iniciaMat(matAdj);
+    cout << "leer arcos" << endl;
+    leerArcos(matAdj, colonias, conexiones);
+
+    cout << "get tsp" << endl;
+    writeStr += "La Ruta Óptima tiene un costo total de: " + to_string(tsp(matAdj, colonias.size(), colonias)) + "\n";
+    cout << "tsp fin" << endl;
+
+    //PARTE 2----------------------------------------------------------------
+	writeStr += "\n-------------------\n3 - Caminos más cortos entre centrales.\n";
 
 	//cout << "Datos leidos correctamente" << endl;
 

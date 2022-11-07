@@ -2,11 +2,15 @@
 1 - Cableado óptimo de nueva conexión.
 
 Purisima - Tecnologico 0.00
-Tecnologico - AltaVista 20.00
-Roma - AltaVista 26.93
-LindaVista - Purisima 67.27
+Tecnologico - AltaVista 15.00
+LindaVista - Roma 17.00
+Roma - AltaVista 18.00
 
-Costo Total: 114.19
+Costo Total: 50.00
 
 -------------------
 2 - La ruta óptima.
+La Ruta Óptima tiene un costo total de: 2147483647
+
+-------------------
+3 - Caminos más cortos entre centrales.
