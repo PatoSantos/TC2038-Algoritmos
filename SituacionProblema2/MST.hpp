@@ -1,3 +1,4 @@
+#pragma once
 /*
 Actividad integradora 2
 - Patricio Santos Garza A01197723
