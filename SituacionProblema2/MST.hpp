@@ -288,3 +288,25 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
     }
     return costoOptimo;
 }
+
+vector<string> conexionNueva(vector<Colonia> colonias, vector<Colonia> futuras){
+	vector<string> result;
+	for (int i = 0; i < futuras.size(); i++){
+		int x1 = futuras[i].pos.first;
+		int y1 = futuras[i].pos.second;
+		double min = INF;
+		string cercana;
+		for (int j = 0; j < colonias.size(); j++){
+			int x2 = colonias[j].pos.first;
+			int y2 = colonias[j].pos.second;
+			double dist = sqrt(pow(abs(x2-x1), 2) + pow(abs(y2-y1), 2));
+			if (dist < min){
+				min = dist;
+				cercana = colonias[j].nombre;
+			}
+		}
+		result.push_back(futuras[i].nombre + " debe conectarse con " + cercana);
+	}
+	return result;
+	
+}

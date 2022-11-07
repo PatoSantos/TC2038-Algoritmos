@@ -91,8 +91,13 @@ int main()
     writeStr += "La Ruta Óptima tiene un costo total de: " + to_string(tsp(matAdj, colonias.size(), colonias)) + "\n";
     cout << "tsp fin" << endl;
 
-    //PARTE 2----------------------------------------------------------------
-	writeStr += "\n-------------------\n3 - Caminos más cortos entre centrales.\n";
+    //PARTE 4----------------------------------------------------------------
+	writeStr += "\n-------------------\n4 - Conexión de nuevas colonias\n\n";
+	vector<string> nuevasConexiones = conexionNueva(colonias, futurasColonias);
+    for (int i = 0; i < nuevasConexiones.size(); i++){
+	    writeStr += nuevasConexiones[i] + "\n";
+    }
+    writeStr += "\n-------------------\n";
 
 	//cout << "Datos leidos correctamente" << endl;
 
