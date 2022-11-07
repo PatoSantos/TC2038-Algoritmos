@@ -295,6 +295,7 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
     return costoOptimo;
 }
 
+//Complejidad: O(n^2)
 vector<string> conexionNueva(vector<Colonia> colonias, vector<Colonia> futuras){
 	vector<string> result;
 	for (int i = 0; i < futuras.size(); i++){
