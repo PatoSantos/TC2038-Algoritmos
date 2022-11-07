@@ -228,8 +228,13 @@ void calculaCostoPosible(Nodo &nodoActual, vector<vector<int>>& matAdj, int n){
 int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
     int costoOptimo = INF;
 	int firstNode = 0;
-	while(colonias[firstNode].esCentral){
+	int centrales = 0;
+	while(firstNode < colonias.size() && colonias[firstNode].esCentral){
 		firstNode++;
+		//Si todas las colonias con centrales regresar 0;
+		if (firstNode >= colonias.size()){
+			return 0;
+		}
 	}
     Nodo raiz;
     raiz.niv = 0;
@@ -241,6 +246,7 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
     raiz.visitados[firstNode+1] = true;
 	for (int i = 0; i < colonias.size(); i++){
 		if (colonias[i].esCentral){
+			centrales++;
 			raiz.visitados[i+1] = true;
 		}
 	}
@@ -266,12 +272,12 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
                     child.verticeAnterior = current.verticeActual;
                     child.visitados[i] = true;
                     calculaCostoPosible(child, matAdj, n);
-                    if (child.niv == n-2){
+                    if (child.niv == n-2-centrales){
                         //si nivel == n-2, calcular costo real
                         for (int j = 1; j<=n; j++){
                             if (!child.visitados[j]){
                                 //Si costo real menor a entonces actualizar costo optimo
-                                int costoReal = child.costoAcum + matAdj[child.verticeActual][j] + matAdj[1][j];
+                                int costoReal = child.costoAcum + matAdj[child.verticeActual][j] + matAdj[firstNode+1][j];
                                 if (costoReal < costoOptimo && costoReal >= 0){
                                     costoOptimo = costoReal;
                                 }
@@ -279,7 +285,7 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
                         }
                     }
                     //si n < n-2 .... checar si costo posible es mejor que costo optimo y meter a pq
-                    if (child.niv < n-2 && child.costoPos < costoOptimo){
+                    if (child.niv < n-2-centrales && child.costoPos < costoOptimo){
                         pq.push(child);
                     }
                 }
