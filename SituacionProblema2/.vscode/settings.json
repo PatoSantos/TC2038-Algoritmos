@@ -6,6 +6,8 @@
         "iosfwd": "cpp",
         "queue": "cpp",
         "unordered_map": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "climits": "cpp",
+        "algorithm": "cpp"
     }
 }
