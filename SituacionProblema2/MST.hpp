@@ -28,13 +28,13 @@ using namespace std;
 
 struct Colonia {
     string nombre;
-    pair<double,double> pos;
+    pair<int,int> pos;
     bool esCentral;
 };
 
 // FUNCIONES DE LA SECCION 1 ==========================================================================
 //Calcula la distancia entre las coordenadas
-double dist(pair<double,double> a, pair<double,double> b){
+int dist(pair<int,int> a, pair<int,int> b){
 	return sqrt(pow(b.first - a.first, 2) + pow(b.second - a.second, 2) * 1.0);
 }
 
@@ -79,9 +79,9 @@ struct Graph {
 	// V = Cantidad de nodos (Vertex)
 	// E = Cantidaf de arcos (Edges)
 	int V, E;
-	double costMSTKruskal;
-	vector<pair<double, pair<int,int>>> edges; 	// Utilizar en Krukal
-	vector<pair<double, pair<int,int>>> selectedEdgesK;		// Los arcos sel Kruskal
+	int costMSTKruskal;
+	vector<pair<int, pair<int,int>>> edges; 	// Utilizar en Krukal
+	vector<pair<int, pair<int,int>>> selectedEdgesK;		// Los arcos sel Kruskal
 	Graph(int V, int E){
 		this->V = V;
 		this->E = E;
@@ -90,7 +90,7 @@ struct Graph {
 	// u = salida del arco
 	// v = llegada del arco
 	// w = costo del arco
-	void addEdge(int u, int v, double w){
+	void addEdge(int u, int v, int w){
 		edges.push_back({w, {u, v}}); //First = costo, second conexión
 	}
 	void load(vector<pair<int, pair<int, int>>>, vector<pair<int,int>>);
@@ -130,9 +130,11 @@ void Graph::kruskalMST(){
 void Graph::printEdgesK(vector<Colonia> colonias, string &writestr){
 	writestr += "\n";
 	for (auto it:selectedEdgesK){
-		stringstream stream;
-		stream << fixed << setprecision(2) << it.first;
-		writestr += colonias[it.second.first].nombre + " - " + colonias[it.second.second].nombre + " " + stream.str() + "\n";
+		if (it.first != 0){
+			stringstream stream;
+			stream << fixed << setprecision(2) << it.first;
+			writestr += colonias[it.second.first].nombre + " - " + colonias[it.second.second].nombre + " " + stream.str() + "\n";
+		}	
 	}
 	
 	stringstream stream;
@@ -316,12 +318,12 @@ vector<string> conexionNueva(vector<Colonia> colonias, vector<Colonia> futuras){
 	for (int i = 0; i < futuras.size(); i++){
 		int x1 = futuras[i].pos.first;
 		int y1 = futuras[i].pos.second;
-		double min = INF;
+		int min = INF;
 		string cercana;
 		for (int j = 0; j < colonias.size(); j++){
 			int x2 = colonias[j].pos.first;
 			int y2 = colonias[j].pos.second;
-			double dist = sqrt(pow(abs(x2-x1), 2) + pow(abs(y2-y1), 2));
+			int dist = sqrt(pow(abs(x2-x1), 2) + pow(abs(y2-y1), 2));
 			if (dist < min){
 				min = dist;
 				cercana = colonias[j].nombre;

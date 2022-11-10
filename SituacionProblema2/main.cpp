@@ -97,7 +97,9 @@ int main()
     cout << "tsp fin" << endl;
 
     //PARTE 3 ---------------------------------------------------------------
-    FloydResult(conexiones, n, m, colonias, colIndex);
+    writeStr += "\n-------------------\n3 - Caminos mas cortos entre centrales.\n \n";
+    
+    writeStr += FloydResult(conexiones, n, m, colonias, colIndex);
 
 
     //PARTE 4----------------------------------------------------------------

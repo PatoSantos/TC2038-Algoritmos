@@ -59,21 +59,20 @@ void Floyd(vector<vector<int>>& mat, vector<vector<int>>& p, int n) {
 
 //Imprimir la ruta qu se siguio
 //Complejidad O(2^n)
-void checaTrayectoria(vector<vector<int>>& p, int x, int y, vector<Colonia>& colonias) {
+void checaTrayectoria(vector<vector<int>>& p, int x, int y, vector<Colonia>& colonias, string& out) {
     //Si no es una conexion directa
     if (p[x][y] != -1) {
         //Checar ruta de punto x a nuevo punto
-        checaTrayectoria(p, x, p[x][y], colonias);
-        cout << colonias[p[x][y]].nombre << " - "; 
+        checaTrayectoria(p, x, p[x][y], colonias, out);
+       out += colonias[p[x][y]].nombre + " - "; 
         //Checar ruta de nuevo punto a punto y
-        checaTrayectoria(p, p[x][y], y, colonias);
+        checaTrayectoria(p, p[x][y], y, colonias, out);
     }
 }
 
-void Consultas(vector<vector<int>>& mat, vector<vector<int>>& p, vector<Colonia>& centrales, unordered_map<string, int>& colindex, vector<Colonia>& colonias) {
-    cout << "---------------------------------------------------------" << endl;
-    cout << "3 - Caminos mas cortos entre centrales." << endl;
+string Consultas(vector<vector<int>>& mat, vector<vector<int>>& p, vector<Colonia>& centrales, unordered_map<string, int>& colindex, vector<Colonia>& colonias) {
 
+    string out = "";
     //Imprimir todas las combinaciones de centrales que hay
     for (int i = 0; i < centrales.size(); i++) {
         for (int j = i + 1; j < centrales.size(); j++) {
@@ -83,21 +82,21 @@ void Consultas(vector<vector<int>>& mat, vector<vector<int>>& p, vector<Colonia>
             }
             else {
                 //Imprimir punto de partida
-                cout << centrales[i].nombre << " - ";
+                out += centrales[i].nombre + " - ";
                 //Imprimir ruta
-                checaTrayectoria(p,colindex[centrales[i].nombre], colindex[centrales[j].nombre], colonias);
+                checaTrayectoria(p,colindex[centrales[i].nombre], colindex[centrales[j].nombre], colonias, out);
                 //Imprimir punto de destino
-                cout << centrales[j].nombre;
+                out += centrales[j].nombre;
                 //Imprimir la primera central a la segunda central
-                cout << " (" << mat[colindex[centrales[i].nombre]][colindex[centrales[j].nombre]] << ")" << endl;
+                out += " (" + to_string(mat[colindex[centrales[i].nombre]][colindex[centrales[j].nombre]]) + ")\n";
             }
         }
     }
-    cout << "---------------------------------------------------------" << endl;
+    return out;
 }
 
 //Complejidad O(n^3)
-void FloydResult(vector<pair<int, pair<int, int>>> conexiones, int n, int m, vector<Colonia> colonias, unordered_map<string, int> colindex) {
+string FloydResult(vector<pair<int, pair<int, int>>> conexiones, int n, int m, vector<Colonia> colonias, unordered_map<string, int> colindex) {
     //Matriz de costo y de trayectoria
     vector<vector<int>> mat(m, vector<int>(m));
     vector<vector<int>> p(m, vector<int>(m));
@@ -117,5 +116,5 @@ void FloydResult(vector<pair<int, pair<int, int>>> conexiones, int n, int m, vec
     }
 
     //Hacer las consultas de todas las centrales entre si
-    Consultas(mat, p, centrales, colindex, colonias);
+    return Consultas(mat, p, centrales, colindex, colonias);
 }
