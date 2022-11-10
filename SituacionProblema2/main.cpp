@@ -79,17 +79,21 @@ int main()
 
 	//PARTE 2----------------------------------------------------------------
 
-	writeStr += "\n-------------------\n2 - La ruta óptima.\n";
+	writeStr += "\n-------------------\n2 - La ruta óptima.\n \n";
 
     cout << "Init mat" << endl;
     vector<vector<int>> matAdj(colonias.size()+1, vector<int>(colonias.size()+1, INF));
+    vector<vector<string>> matCamino(colonias.size()+1, vector<string>(colonias.size()+1, "=========="));
 
     iniciaMat(matAdj);
     cout << "leer arcos" << endl;
-    leerArcos(matAdj, colonias, conexiones);
+    leerArcos(matAdj, matCamino, colonias, conexiones);
+
+    string caminoTsp = "";
+    string costoTsp = to_string(tsp(matAdj, colonias.size(), colonias, caminoTsp, matCamino));
 
     cout << "get tsp" << endl;
-    writeStr += "La Ruta Óptima tiene un costo total de: " + to_string(tsp(matAdj, colonias.size(), colonias)) + "\n";
+    writeStr += caminoTsp + "\n \nLa Ruta Óptima tiene un costo total de: " + costoTsp + "\n";
     cout << "tsp fin" << endl;
 
     //PARTE 3 ---------------------------------------------------------------

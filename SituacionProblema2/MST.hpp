@@ -160,25 +160,29 @@ void iniciaMat(vector<vector<int>>& matAdj){
     }
 }
 
-void printMat(vector<vector<int>> matAdj){
+void printMat(vector<vector<string>> matAdj){
 	cout << "----------------" << endl;
 	for (int i = 1; i < matAdj.size(); i++){
 		for (int j = 1; j < matAdj[i].size(); j++){
-			if (matAdj[i][j] == INF) {
-				cout << "IN" << " ";
-			} else {
+			
 				cout << matAdj[i][j] << " ";
-			}
+			
 		}
 		cout << endl;
 	}
 }
 
-void leerArcos(vector<vector<int>>& matAdj, vector<Colonia> colonias, vector<pair<int, pair<int, int>>> conexiones){
+void leerArcos(vector<vector<int>>& matAdj, vector<vector<string>>& matCamino, vector<Colonia> colonias, vector<pair<int, pair<int, int>>> conexiones){
     for (int i = 0; i < conexiones.size(); i++){
         matAdj[conexiones[i].second.first+1][conexiones[i].second.second+1] = 
 			matAdj[conexiones[i].second.second+1][conexiones[i].second.first+1] = conexiones[i].first;
+		
+		matCamino[conexiones[i].second.first+1][conexiones[i].second.second+1] = colonias[conexiones[i].second.second].nombre;
+		matCamino[conexiones[i].second.second+1][conexiones[i].second.first+1] = colonias[conexiones[i].second.first].nombre;
     }
+
+	printMat(matCamino);
+
 	for (int i = 0; i < colonias.size(); i++){
 		if (colonias[i].esCentral){
 			for (int j = 1; j < matAdj[i+1].size(); j++){
@@ -186,12 +190,19 @@ void leerArcos(vector<vector<int>>& matAdj, vector<Colonia> colonias, vector<pai
 					for (int k = j+1; k < matAdj[i+1].size(); k++){
 						if (matAdj[i+1][k] != INF && matAdj[i+1][j] + matAdj[i+1][k] < matAdj[j][k]){
 							matAdj[j][k] = matAdj[k][j] = matAdj[i+1][j] + matAdj[i+1][k];
+
+							cout << matCamino[j][k] + " * " + matCamino[k][j] << endl;
+							matCamino[j][k] = matCamino[j][k] + " - " + colonias[i].nombre;
+							matCamino[k][j] = colonias[i].nombre + " - " + matCamino[k][j];
+							cout << matCamino[j][k] + " * " + matCamino[k][j] << endl;
 						}
 					}
 				}
 			}
 		}
 	}
+
+	printMat(matCamino);
 }
 
 void calculaCostoPosible(Nodo &nodoActual, vector<vector<int>>& matAdj, int n){
@@ -226,7 +237,7 @@ void calculaCostoPosible(Nodo &nodoActual, vector<vector<int>>& matAdj, int n){
 }
 
 //Complejidad: O(2^n)
-int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
+int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias, string& caminoTsp, vector<vector<string>>& matCamino){
     int costoOptimo = INF;
 	int firstNode = 0;
 	int centrales = 0;
@@ -242,7 +253,7 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
     raiz.costoAcum = 0;
     raiz.verticeActual = firstNode+1;
     raiz.verticeAnterior = 0;
-	cout << "Cancelar centrales" << endl;
+	caminoTsp = colonias[firstNode].nombre;
 	raiz.visitados = vector<bool>(matAdj.size()+1, false);
     raiz.visitados[firstNode+1] = true;
 	for (int i = 0; i < colonias.size(); i++){
@@ -251,7 +262,7 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
 			raiz.visitados[i+1] = true;
 		}
 	}
-	cout << "centrales canceladas" << endl;
+	
     calculaCostoPosible(raiz, matAdj, n);
     priority_queue<Nodo> pq;
     pq.push(raiz);
@@ -272,6 +283,8 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
                     child.verticeActual = i;
                     child.verticeAnterior = current.verticeActual;
                     child.visitados[i] = true;
+					cout << child.verticeAnterior << " " << child.verticeActual << endl;
+					caminoTsp += " - " + matCamino[child.verticeAnterior][child.verticeActual];
                     calculaCostoPosible(child, matAdj, n);
                     if (child.niv == n-2-centrales){
                         //si nivel == n-2, calcular costo real
@@ -293,6 +306,7 @@ int tsp(vector<vector<int>>& matAdj, int n, vector<Colonia> colonias){
             }
         }
     }
+	caminoTsp += " - " + colonias[firstNode].nombre;
     return costoOptimo;
 }
 
