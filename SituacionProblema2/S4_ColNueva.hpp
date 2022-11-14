@@ -19,7 +19,7 @@ using namespace std;
 
 #define INF INT_MAX
 
-//Complejidad: O(n^2)
+//Complejidad: O(N*Q)
 vector<string> conexionNueva(vector<Colonia> colonias, vector<Colonia> futurasColonias){
 	vector<string> result;
 	for (int i = 0; i < futurasColonias.size(); i++){
