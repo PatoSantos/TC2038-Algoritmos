@@ -1,28 +1,51 @@
 -------------------
 1 - Cableado óptimo de nueva conexión.
 
-Tecnologico - AltaVista 15
-LindaVista - Roma 17
-Roma - AltaVista 18
+Pantitl�n - Ju�rez 4
+DelValle - Cerritos 5
+Pantitl�n - Cerritos 10
+RomaNorte - Cosmopolita 25
+Pantitl�n - Cosmopolita 25
+Condesa - Polanco 27
+Condesa - Cosmopolita 34
+Polanco - Merced 54
+Polanco - Tlatelolco 58
+SantaFe - Merced 66
 
-Costo Total: 50
+Costo Total: 308
 
 -------------------
 2 - La ruta óptima.
  
-Purisima - Roma - AltaVista - Tecnologico - Purisima
+DelValle - Cerritos - Pantitl�n - Cosmopolita - Tlatelolco - Polanco - Merced - SantaFe - DelValle
  
-La Ruta Óptima tiene un costo total de: 123
+La Ruta Óptima tiene un costo total de: 394
 
 -------------------
 3 - Caminos mas cortos entre centrales.
  
-LindaVista - Roma - AltaVista - Tecnologico (50)
+Condesa - Polanco (27)
+Condesa - Cosmopolita - RomaNorte (59)
+Condesa - Cosmopolita - Ju�rez (63)
+Condesa - Cosmopolita - Pantitl�n - SantaFe (126)
+Condesa - Cosmopolita (34)
+Polanco - Condesa - Cosmopolita - RomaNorte (86)
+Polanco - Condesa - Cosmopolita - Ju�rez (90)
+Polanco - Merced - SantaFe (120)
+Polanco - Condesa - Cosmopolita (61)
+RomaNorte - Cosmopolita - Ju�rez (54)
+RomaNorte - Cosmopolita - Pantitl�n - SantaFe (117)
+RomaNorte - Cosmopolita (25)
+Ju�rez - Pantitl�n - SantaFe (71)
+Ju�rez - Cosmopolita (29)
+SantaFe - Pantitl�n - Cosmopolita (92)
 
 -------------------
 4 - Conexión de nuevas colonias
 
-Independencia debe conectarse con Purisima
-Roble debe conectarse con AltaVista
+FelipeAngeles debe conectarse con Pantitl�n
+Tlazintla debe conectarse con RomaNorte
+Penitenciaria debe conectarse con DelValle
+Porvenir debe conectarse con RomaNorte
 
--------------------
+-------------------<
